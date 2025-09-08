@@ -1,27 +1,21 @@
+import type CustomerEntity from "../../../core/entities/customerEntity.js";
 import type ICustomer from "../../../core/interfaces/CustomerInterface.js";
-import type CustomerRepository from "../../../core/repositories/CustomerRepository.js";
+import type CustomerRepository from "../../../core/repositories/CustomerRepository.ts";
 
 export default class CustomerRepositoryInMemory implements CustomerRepository {
-  userList: any[] = [
-    {
-      id: "1",
-      name: "Julio",
-      email: "julio@teste",
-      phone: "234234234",
-    },
-    {
-      id: "2",
-      name: "Luan",
-      email: "luan@teste.com",
-      phone: "234234234",
-    },
-  ];
+  customerList: CustomerEntity[] = [];
 
-  save({ name, phone, email }: ICustomer): Promise<void> {
-    const id = Math.random() + 1;
-    this.userList.push({ id, name, email, phone });
-    return Promise.resolve();
+  async save({ name, phone, email }: ICustomer): Promise<any> {
+    try {
+      const id = "ffff";
+
+      const newCustomer: ICustomer = { id, name, phone, email };
+
+      this.customerList.push(newCustomer);
+      return newCustomer;
+    } catch (error) {}
   }
+
   delete(id: string): Promise<void> {
     throw new Error("Method not implemented.");
   }
@@ -33,5 +27,8 @@ export default class CustomerRepositoryInMemory implements CustomerRepository {
   }
   findAll(): Promise<ICustomer[]> {
     throw new Error("Method not implemented.");
+  }
+  update(id: string, data: ICustomer): Promise<void> {
+    throw new Error("Method not implemented");
   }
 }
