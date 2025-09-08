@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import CustomerRepositoryInMemory from "../../infra/repositories/RepositoryInMemory/CustomerRepositoryInMemory.js";
-import CreateCustomerUseCase from "../../core/useCases/customer/Create.js";
+import CustomerRepositoryInMemory from "../../infra/repositories/RepositoryInMemory/CustomerRepositoryInMemory.ts";
+import CreateCustomerUseCase from "../../core/useCases/customer/Create.ts";
+import FindAllCustomerUseCase from "../../core/useCases/customer/FindAll.ts";
 
 describe("Teste unitário para Customer", () => {
   const user = {
@@ -24,5 +25,19 @@ describe("Teste unitário para Customer", () => {
     expect(newCustomer.email).toBe(user.email);
     expect(newCustomer.phone).toBe(user.phone);
     expect(newCustomer.id).toBe("ffff");
+  });
+
+  test("Deveria retornar uma lista de customers", async () => {
+    const createCustomer = new CreateCustomerUseCase(customerRepositoryMemory);
+    await createCustomer.execute(user);
+
+    const findCustomers = new FindAllCustomerUseCase(customerRepositoryMemory);
+    const customers = await findCustomers.execute();
+
+    expect(customers.length).toBeGreaterThan(0);
+    const customer = customers[0];
+    expect(customer?.name).toBe(user.name);
+    expect(customer?.email).toBe(user.email);
+    expect(customer?.phone).toBe(user.phone);
   });
 });

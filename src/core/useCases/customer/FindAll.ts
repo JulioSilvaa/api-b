@@ -1,3 +1,4 @@
+import type ICustomer from "../../interfaces/CustomerInterface.ts";
 import type ICustomerRepository from "../../repositories/CustomerRepository.js";
 
 export default class FindAllCustomerUseCase {
@@ -7,7 +8,11 @@ export default class FindAllCustomerUseCase {
     this.customerRepository = customerRepository;
   }
 
-  async execute(): Promise<void> {
-    await this.customerRepository.findAll();
+  async execute(): Promise<ICustomer[]> {
+    const customers = await this.customerRepository.findAll();
+    if (customers.length === 0) {
+      return [];
+    }
+    return customers;
   }
 }

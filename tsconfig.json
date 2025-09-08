@@ -1,14 +1,17 @@
 {
   "compilerOptions": {
-    "module": "node20",
-    "target": "es2020",
+    "module": "ESNext",
+    "target": "es2017",
     "types": [
       "vitest/globals"
     ],
     "sourceMap": true,
     "declaration": true,
+    "moduleResolution": "nodenext",
     "declarationMap": true,
+    "allowImportingTsExtensions": true,
     "noUncheckedIndexedAccess": true,
+    "noEmit": true,
     "exactOptionalPropertyTypes": true,
     "strict": true,
     "verbatimModuleSyntax": true,

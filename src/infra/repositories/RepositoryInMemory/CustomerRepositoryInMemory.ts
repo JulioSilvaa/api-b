@@ -25,8 +25,10 @@ export default class CustomerRepositoryInMemory implements CustomerRepository {
   findByEmail(email: string): Promise<ICustomer> {
     throw new Error("Method not implemented.");
   }
-  findAll(): Promise<ICustomer[]> {
-    throw new Error("Method not implemented.");
+  async findAll(): Promise<any> {
+    try {
+      return this.customerList;
+    } catch (error) {}
   }
   update(id: string, data: ICustomer): Promise<void> {
     throw new Error("Method not implemented");
