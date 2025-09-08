@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, test } from "vitest";
 import CustomerRepositoryInMemory from "../../infra/repositories/RepositoryInMemory/CustomerRepositoryInMemory.ts";
 import CreateCustomerUseCase from "../../core/useCases/customer/Create.ts";
 import FindAllCustomerUseCase from "../../core/useCases/customer/FindAll.ts";
+import FindByIdCustomerUseCase from "../../core/useCases/customer/FindById.ts";
 
 describe("Teste unitário para Customer", () => {
   const user = {
@@ -39,5 +40,19 @@ describe("Teste unitário para Customer", () => {
     expect(customer?.name).toBe(user.name);
     expect(customer?.email).toBe(user.email);
     expect(customer?.phone).toBe(user.phone);
+  });
+
+  test("Deveria retornar o customer com o ID fornecido", async () => {
+    const createCustomer = new CreateCustomerUseCase(customerRepositoryMemory);
+    const newCustomer = await createCustomer.execute(user);
+
+    const findCustomerById = new FindByIdCustomerUseCase(
+      customerRepositoryMemory
+    );
+    const customer = await findCustomerById.execute("ffff");
+
+    expect(customer).toBeDefined();
+    expect(customer?.id).toBe(newCustomer?.id);
+    expect(customer?.name).toBe(newCustomer?.name);
   });
 });
