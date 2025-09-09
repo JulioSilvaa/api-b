@@ -1,8 +1,7 @@
-import CustomerEntity from "../core/entities/customerEntity.js";
-import type ICustomer from "../core/interfaces/CustomerInterface.js";
+import CustomerEntity from "../core/entities/customerEntity.ts";
 
 export default class CustomerAdapter {
-  static async create({email,name,phone}: ICustomer){
-    return new CustomerEntity({email,name,phone});
+  static async Dto({ email, name, phone }: CustomerEntity) {
+    return new CustomerEntity({ email, name, phone });
   }
 }

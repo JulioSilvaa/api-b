@@ -1,5 +1,5 @@
-import type ICustomer from "../../interfaces/CustomerInterface.js";
-import type CustomerRepository from "../../repositories/CustomerRepository.js";
+import type CustomerEntity from "../../entities/customerEntity.ts";
+import type CustomerRepository from "../../repositories/CustomerRepository.ts";
 
 export default class FindByIdCustomerUseCase {
   private customerUseCase: CustomerRepository;
@@ -8,7 +8,7 @@ export default class FindByIdCustomerUseCase {
     this.customerUseCase = customerRepository;
   }
 
-  async execute(id: string): Promise<ICustomer> {
+  async execute(id: string): Promise<CustomerEntity> {
     const customer = await this.customerUseCase.findByID(id);
     return customer;
   }

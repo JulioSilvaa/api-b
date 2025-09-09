@@ -1,4 +1,4 @@
-import type ICustomer from "../../interfaces/CustomerInterface.js";
+import type CustomerEntity from "../../entities/customerEntity.ts";
 import type CustomerRepository from "../../repositories/CustomerRepository.js";
 
 export default class UpdateCustomerUseCase {
@@ -8,7 +8,8 @@ export default class UpdateCustomerUseCase {
     this.customerRepository = customerRepository;
   }
 
-  async execute(id: string, data: ICustomer): Promise<void> {
-    await this.customerRepository.update(id, data);
+  async execute(id: string, data: CustomerEntity): Promise<CustomerEntity> {
+    const customerUpdated = await this.customerRepository.update(id, data);
+    return customerUpdated;
   }
 }
