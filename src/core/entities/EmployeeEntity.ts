@@ -5,8 +5,8 @@ export default class EmployeeEntity {
   name: string;
   email: string;
   position: string;
-  salary: number;
-  phone: string;    
+  salary: string;
+  phone: string;
 
   constructor(props: IEmployee) {
     this.id = props.id;
@@ -14,6 +14,6 @@ export default class EmployeeEntity {
     this.email = props.email;
     this.position = props.position;
     this.salary = props.salary;
-    this.phone = props.phone;    
+    this.phone = props.phone;
   }
 }
