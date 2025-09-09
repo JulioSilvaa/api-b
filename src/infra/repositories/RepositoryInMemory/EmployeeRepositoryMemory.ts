@@ -1,36 +1,41 @@
+import type EmployeeEntity from "../../../core/entities/EmployeeEntity.ts";
 import type { IEmployee } from "../../../core/interfaces/EmployeeInterface.js";
 import type IEmployeeRepository from "../../../core/repositories/EmployeeRepository.js";
 
 export default class EmployeeRepositoryMemory implements IEmployeeRepository {
-  save({ name, email, position, salary, phone }: IEmployee): Promise<void> {
-    throw new Error("Method not implemented.");
-  }
-  private employees: IEmployee[] = [];
+  employees: EmployeeEntity[] = [];
 
-  async add({name, email, position, salary, phone}: IEmployee): Promise<void> {
-    this.employees.push({name, email, position, salary, phone});
+  async save(data: EmployeeEntity): Promise<EmployeeEntity> {
+    const id = "employ01";
+
+    const newEmployee: EmployeeEntity = { id, ...data };
+    this.employees.push(newEmployee);
+    return newEmployee;
   }
 
   async delete(id: string): Promise<void> {
-    this.employees = this.employees.filter(employee => employee.id !== id);
+    this.employees = this.employees.filter((employee) => employee.id !== id);
   }
 
   async findById(id: string): Promise<IEmployee | null> {
-    return this.employees.find(employee => employee.id === id) || null;
+    throw new Error("Method not implemented.");
   }
 
   async findByEmail(email: string): Promise<IEmployee | null> {
-    return this.employees.find(employee => employee.email === email) || null;
+    throw new Error("Method not implemented.");
   }
 
   async findAll(): Promise<IEmployee[]> {
-    return this.employees;
+    throw new Error("Method not implemented.");
   }
 
-  async update(id: string, {name, email, position, salary, phone}: IEmployee): Promise<void> {
-    const index = this.employees.findIndex(employee => employee.id === id);
+  async update(
+    id: string,
+    { name, email, position, salary, phone }: IEmployee
+  ): Promise<void> {
+    const index = this.employees.findIndex((employee) => employee.id === id);
     if (index !== -1) {
-      this.employees[index] = {id, name, email, position, salary, phone};
+      this.employees[index] = { id, name, email, position, salary, phone };
     }
   }
 }

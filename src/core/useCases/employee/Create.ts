@@ -1,13 +1,15 @@
+import type EmployeeEntity from "../../entities/EmployeeEntity.ts";
 import type IEmployeeRepository from "../../repositories/EmployeeRepository.js";
 
-export default class EmplooyUseCase{
+export default class CreateEmployeeUseCase {
   private employeeRepository: IEmployeeRepository;
 
-  constructor(employeeRepository: IEmployeeRepository){
+  constructor(employeeRepository: IEmployeeRepository) {
     this.employeeRepository = employeeRepository;
   }
 
-  async execute(name: string, email: string, position: string, salary: number, phone: string):Promise<void> {
-    await this.employeeRepository.save({name, email, position, salary, phone});
+  async execute(data: EmployeeEntity): Promise<EmployeeEntity> {
+    const employeeCreated = await this.employeeRepository.save(data);
+    return employeeCreated;
   }
 }

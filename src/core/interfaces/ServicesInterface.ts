@@ -1,7 +1,7 @@
-export default interface IService{
+export default interface IService {
   id?: string;
   name: string;
   description: string;
-  price: number;
+  price: string;
   duration: number; // duration in minutes
 }
